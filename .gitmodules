@@ -1,0 +1,3 @@
+[submodule "wsdot-traffic-gp"]
+	path = wsdot-traffic-gp
+	url = https://github.com/WSDOT-GIS/wsdot-traffic-gp

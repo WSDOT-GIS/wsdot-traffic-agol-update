@@ -3,11 +3,13 @@ Requires ArcGIS Pro installation to supply arcpy module
 """
 
 import json
-from sys import stderr
-from os.path import exists
-from typing import Iterable
+import sys
 
+from os.path import exists, dirname, realpath, join
+from sys import stderr
 from arcgis.gis import GIS, Item
+from typing import Iterable
+import addtopath
 import creategdb
 
 _GDB_PATH = "TravelerInfo.gdb.zip"
