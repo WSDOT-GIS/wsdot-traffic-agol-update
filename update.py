@@ -3,18 +3,17 @@ Requires ArcGIS Pro installation to supply arcpy module
 """
 
 import json
-import sys
-
-from os.path import exists, dirname, realpath, join
 from sys import stderr
+
+from os.path import exists
 from arcgis.gis import GIS, Item
 from typing import Iterable
-import addtopath
-import creategdb
+from addtopath import creategdb
+from arcgisext import export, TokenManager
 
 _GDB_PATH = "TravelerInfo.gdb.zip"
 _LOGIN_JSON_PATH = "login-info.json"
-GDB_TITLE = "TravelerApi"
+GDB_TITLE = "TravelerInfo"
 FOLDER = "TravelerInfo"
 TAGS = ("WSDOT", "traffic", "traveler", "transportation")
 
@@ -68,7 +67,7 @@ def main():
 
     # Specify the title that this script will either update or create.
 
-    gis = GIS(**login_info)
+    gis = GIS("https://www.arcgis.com", **login_info)
 
     # Create or get exising file GDB
     traffic_gdb_item = _find_file_gdb(gis)
@@ -90,10 +89,17 @@ def main():
 
     # Create or update feature collection
     feature_collection_item = _find_feature_collection(gis)
+    root_uri = gis._portal.resturl
+    token_manager = TokenManager(
+        gis._username, gis._password, "https://wsdot.maps.arcgis.com",
+        root_uri=root_uri)
     if not feature_collection_item:
-        feature_collection_item = _add_new_feature_collection(
-            gis, feature_service)
-    feature_collection_item.update(data=feature_service.url)
+        export_success = export(feature_service.itemid, root_uri,
+                                token_manager, overwrite=False)
+    else:
+        export_success = export(feature_service.itemid, root_uri,
+                                token_manager, feature_collection_item.itemid)
+
 
 ITEM_TYPE_FEATURE_LAYER = "Feature Layer"
 ITEM_TYPE_FILE_GDB = "File Geodatabase"
@@ -130,11 +136,6 @@ def _add_new_gdb(gis: GIS):
     return _add_item(gis, ITEM_TYPE_FILE_GDB, _GDB_PATH)
 
 
-def _add_new_feature_collection(gis: GIS, feature_service):
-    # TODO: this doesn't actually add the data. Figure out how to do so.
-    return _add_item(gis, ITEM_TYPE_FEATURE_COLLECTION, feature_service.url)
-
-
 def _add_item(
         gis: GIS, item_type: str, data: str, folder: str=FOLDER) -> Item:
     try:
@@ -147,6 +148,7 @@ def _add_item(
     except (RuntimeError, AttributeError) as ex:
         raise ItemAddFailError(ex)
     return new_item
+
 
 if __name__ == '__main__':
     main()

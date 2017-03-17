@@ -4,3 +4,5 @@ import sys
 
 from os.path import dirname, realpath, join
 sys.path.insert(0, join(dirname(realpath(__file__)), r"wsdot-traffic-gp"))
+
+import creategdb
