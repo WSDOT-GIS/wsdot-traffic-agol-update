@@ -86,6 +86,7 @@ def main():
         print("Updating %s by uploading %s..." % (traffic_gdb_item.title,
                                                   _GDB_PATH))
         traffic_gdb_item.update(data=_GDB_PATH)
+        feature_service = traffic_gdb_item.publish(overwrite=True)
 
     # Create or update feature collection
     feature_collection_item = _find_feature_collection(gis)

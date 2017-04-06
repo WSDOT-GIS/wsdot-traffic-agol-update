@@ -25,7 +25,8 @@ class JobFailureError(Exception):
 
 
 class TokenError(Exception):
-
+    """An error that occurs while requesting a token.
+    """
     def __init__(self, info: dict):
         self.error_info = info
         super().__init__()
