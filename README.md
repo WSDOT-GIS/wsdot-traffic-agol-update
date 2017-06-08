@@ -40,14 +40,16 @@ Scripts
 * Logs into ArcGIS Online (AGOL)
 * Uploads zipped GDB to AGOL.
 * Publishes the uploaded GDB as a feature service
-* Inspired by the [Transportation 511](http://links.esri.com/stategovernment/help/transportation511) [overwrite-hosted-features](https://github.com/Esri/overwrite-hosted-features) script
+* Inspired by the [Transportation 511] [overwrite-hosted-features] script
 
 
 
 [ArcGIS]:http://resources.arcgis.com/
 [ArcGIS API for Python]:https://developers.arcgis.com/python/
-[ArcGIS Pro]:http://pro[.arcgis.co]m
+[ArcGIS Pro]:http://pro.arcgis.com
+[overwrite-hosted-features]:https://github.com/Esri/overwrite-hosted-features
 [submodule]:https://git-scm.com/book/en/v2/Git-Tools-Submodules
+[Transportation 511]:http://links.esri.com/stategovernment/help/transportation511
 [unittest]:https://docs.python.org/3/library/unittest.html
 [wsdot-traffic-gp]:https://github.com/WSDOT-GIS/wsdot-traffic-gp/
 [WSDOT Traveler Information API]:http://www.wsdot.wa.gov/Traffic/api/
