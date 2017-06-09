@@ -1,3 +1,5 @@
+*.sd
+*.sddraft
 TrafficApi.tbx
 login-info.json
 output

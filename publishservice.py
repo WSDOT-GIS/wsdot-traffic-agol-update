@@ -3,6 +3,7 @@
 
 import re
 from os.path import abspath, exists
+import arcpy
 from arcpy import AddMessage, AddError
 from arcpy.mp import ArcGISProject, CreateWebLayerSDDraft
 
@@ -20,15 +21,17 @@ def main(project_path='traffic-map.aprx',
     aprx = ArcGISProject(project_path)
     # Get the first map
     the_map = aprx.listMaps()[0]
+    the_layers = the_map.listLayers()
 
     # Create the output path string by replacing the file extension.
     draft_path = re.sub(r"\.aprx$", ".sddraft", project_path)
     AddMessage("Creating %s from %s..." % (project_path, draft_path))
     # Create the web layer SDDraft file.
     try:
-        # TODO: Fails here with a RuntimeError that has no message.
+        # TODO: Fails here with a RuntimeError that has no message if
+        # ArcGIS Pro is not open and signed in to ArcGIS Online.
         CreateWebLayerSDDraft(
-            the_map, draft_path, service_name, folder_name=folder_name,
+            the_layers, draft_path, service_name, folder_name=folder_name,
             copy_data_to_server=True, summary="Test service",
             tags="test,traffic,traveler", description="Test Service",
             use_limitations="For testing only")
@@ -38,6 +41,10 @@ def main(project_path='traffic-map.aprx',
         else:
             AddError(
                 "Error creating %s. No further info provided." % draft_path)
+    else:
+        service_definition = arcpy.server.StageService(draft_path)
+        arcpy.server.UploadServiceDefinition(service_definition)
+
 
 if __name__ == '__main__':
     main()

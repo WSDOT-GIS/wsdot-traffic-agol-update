@@ -20,4 +20,4 @@ Param(
 [System.IO.FileInfo]$pythonexe = Get-ChildItem $ProEnvFolder "python.exe"
 
 # Start the Python script's execution, using the full path to the Python exe.
-Start-Process -FilePath $pythonexe.FullName -ArgumentList $PythonScript -NoNewWindow -PassThru -Wait
+Start-Process -FilePath $pythonexe.FullName -ArgumentList $PythonScript -NoNewWindow -Wait
