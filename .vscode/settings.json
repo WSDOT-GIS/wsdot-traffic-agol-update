@@ -17,7 +17,7 @@
         "test*.py"
     ],
     "python.unitTest.unittestEnabled": false,
-    "python.pythonPath": "C:/Program Files/ArcGIS/Pro/bin/Python/envs/arcgispro-py3/python",
+    "python.pythonPath": "C:/Program Files/ArcGIS/Pro/bin/Python/envs/arcgispro-py3/python.exe",
     "python.unitTest.promptToConfigure": false,
     "python.unitTest.pyTestEnabled": false,
     "python.unitTest.nosetestsEnabled": false,

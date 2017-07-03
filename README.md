@@ -8,7 +8,7 @@ References [wsdot-traffic-gp] as a git [submodule].
 Requirements
 ------------
 
-* [ArcGIS Pro] 1.4 or higher
+* [ArcGIS Pro] 2.0 or higher
 * [ArcGIS API for Python]
 * Python 3.X (comes with ArcGIS Pro)
 
